@@ -36,9 +36,18 @@ def delete(id_data):
         conn.commit()
     return redirect(url_for('showData'))
 
-# @app.route("/update",methods=["POST"])
-# def update():
-#     if request.method=='POST' :
+@app.route("/update",methods=["POST"])
+def update():
+    if request.method=='POST' :
+        s_id = request.form['id']
+        fname = request.form['fname']
+        lname = request.form['lname']
+        phone = request.form['phone']
+        with conn.cursor() as cursor:
+            sql = "update student set f_name = %s, l_name = %s, phone = %s where s_id = %s"
+            cursor.execute(sql,(fname,lname,phone,s_id))
+            conn.commit()
+        return redirect(url_for('showData'))
 
 
 if __name__ == "__main__" :
